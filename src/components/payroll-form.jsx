@@ -6,7 +6,7 @@ import profile4 from "../assets/profile-images/Ellipse -9.png";
 import './payroll-form.scss';
 import logo from "../assets/images/logo.png";
 import { useParams, Link} from 'react-router-dom';
-import EmployeeService from '../service/EmployeeService';
+import EmployeeService from '../services/EmployeeService';
 
 
 
@@ -92,7 +92,7 @@ function PayrollForm() {
             startDate: `${formValue.year}-${formValue.month}-${formValue.day}`,
             notes: formValue.notes
         };
-        console.log(employeeObject);
+        console.log("date is :",employeeObject);
         if (formValue.isUpdate) {
             EmployeeService.updateEmployee(params.id, employeeObject)
                 .then((data) => {
@@ -144,19 +144,19 @@ function PayrollForm() {
                 <label className='label text' for='profile'>Profile image</label>
                     <div  className='profile-radio-content'>
                         <label>
-                            <input type='radio' id='profile1' name='profilePic' value='../../assets/profile-images/male -3.png' checked={formValue.profilePic === '../../assets/profile-images/male -3.png'} onChange={(e) => onnameChange(e)} />
+                            <input type='radio' id='profile1' name='profilePic' value='../assets/profile-images/Ellipse -3.png' checked={formValue.profilePic === '../assets/profile-images/Ellipse -3.png'} onChange={(e) => onnameChange(e)} />
                             <img src={profile1} className='profile' id='image1'  />
                         </label>
                         <label>
-                            <input type='radio' id='profile2' name='profilePic' value ='../../assets/profile-images/female -1.png' checked={formValue.profilePic === '../../assets/profile-images/female -1.png'} onChange={(e) => onnameChange(e)}  />
+                            <input type='radio' id='profile2' name='profilePic' value ='../assets/profile-images/Ellipse -1.png' checked={formValue.profilePic === '../assets/profile-images/Ellipse -1.png'} onChange={(e) => onnameChange(e)}  />
                             <img src={profile2} className='profile' id='image2'  />
                         </label>
                         <label>
-                            <input type='radio' id='profile3' name='profilePic' value ='../../assets/profile-images/female -4.png' checked={formValue.profilePic === '../../assets/profile-images/female -4.png'} onChange={(e)=> onnameChange(e)} />
+                            <input type='radio' id='profile3' name='profilePic' value ='../assets/profile-images/Ellipse -4.png' checked={formValue.profilePic === '../assets/profile-images/Ellipse -4.png'} onChange={(e)=> onnameChange(e)} />
                             <img className='profile' id='image3' src={profile3} />
                         </label>
                         <label>
-                            <input type='radio' id='profile4' name='profilePic'  value ='../../assets/profile-images/male -9.png' checked={formValue.profilePic === '../../assets/profile-images/male -9.png'} onChange={(e)=> onnameChange(e)}/>
+                            <input type='radio' id='profile4' name='profilePic'  value ='../assets/profile-images/Ellipse -9.png' checked={formValue.profilePic === '../assets/profile-images/Ellipse -9.png'} onChange={(e)=> onnameChange(e)}/>
                             <img className='profile' id='image4' src={profile4} />
                         </label>
                     </div>
