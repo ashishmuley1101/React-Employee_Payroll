@@ -7,10 +7,10 @@ import profile4 from "../assets/profile-images/Ellipse -9.png";
 import edit from "../assets/icons/create-black-18dp.svg";
 import deleteicon from "../assets/icons/delete-black-18dp.svg";
 import { withRouter, Link } from "react-router-dom";
-import EmployeeService from "../services/EmployeeService";
-import logo from "../assets/images/logo.png";
+import EmployeeService from "../services/EmployeeService";;
 // import deleteIcon from "../assets/images/remove.png";
 // import editIcon from "../assets/images/edit.png";;
+// import Headers from "../components/headers";
 
 
 class Home extends Component {
@@ -23,41 +23,11 @@ class Home extends Component {
 
     }
 
-    fetchData() {
-        EmployeeService.findAllEmployee().then((response) => {
-            console.log(response.data);
-            this.setState({ employee: response.data });
-        });
-    }
-    deleteEmployee(employeeId) {
-        console.log("employee id" + employeeId);
-        EmployeeService.deleteEmployee(employeeId);
-        window.location.reload();
-    }
-
-    componentDidMount() {
-        this.fetchData();
-    }
-    
-    updateEmployee = (employeeId) => {
-        console.log(employeeId)
-        this.props.history.push(`EmployeeForm/${employeeId}`);
-    };
-
 
     render() {
         return (
             <div>
-                <header className="header-content header">
-                <div className="logo-content">
-                    <img src={logo} alt="logo"/>
-                    <div>
-                        <span className="emp-text">EMPLOYEE</span>
-                        <br />
-                        <span className="emp-text emp-payroll">PAYROLL</span>
-                    </div>
-                </div>
-                </header>
+                
                 <div>
                     <div className="main-content">
                         <div className="header-content employee-header">

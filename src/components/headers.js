@@ -1,11 +1,12 @@
 import { Component } from "react";
 import logo from "../assets/images/logo.png";
 import "./home.scss";
+import "./payroll-form.scss";
 
 
 class Headers extends Component {
-    
-        return(){
+    render(){
+        return(
             <div>
             <header className="header-content header">
                 <div className="logo-content">
@@ -18,6 +19,7 @@ class Headers extends Component {
                 </div>
             </header>
             </div>
+        )
         }
     }
 

@@ -4,9 +4,9 @@ import profile2 from "../assets/profile-images/Ellipse -1.png";
 import profile3 from  "../assets/profile-images/Ellipse -4.png";
 import profile4 from "../assets/profile-images/Ellipse -9.png";
 import './payroll-form.scss';
-import logo from "../assets/images/logo.png";
 import { useParams, Link} from 'react-router-dom';
 import EmployeeService from '../services/EmployeeService';
+import Swal from 'sweetalert2';
 
 
 
@@ -14,7 +14,7 @@ function PayrollForm() {
     const allDepartment = ["HR", "Sales", "Finance", "Engineer", "Others"]
 
     const [formValue, setForm] = useState({
-        employeeName: "",
+        name: "",
         profilePic: "",
         gender: "",
         department: [],
@@ -23,54 +23,22 @@ function PayrollForm() {
         notes: "",
         isUpdate: false,
     });
-    const params = useParams();
-    useEffect(() => {
-       // console.log(params.id)
-         getEmployeeId(params.id)
 
-    }, []);
-    const getEmployeeId = (employeeId) => {
-        console.log(employeeId)
-        EmployeeService.findEmployee(employeeId).then((response) => {
-             let obj = response.data.responseData;
-            console.log(obj);
-             setData(obj)
-        })
-
-    };
-
-    const setData = (obj) => {
-        let array = obj.startDate;
-        console.log(obj.startDate);
-        console.log(obj)
-        setForm({
-            ...formValue,
-            ...obj,
-            id: obj.id,
-            employeeName: obj.employeeName,
-            department: obj.department,
-            isUpdate: true,
-            day: array[8] + array[9],
-            month: array[5] + array[6],
-            year: array[0] + array[1] + array[2] + array[3],
-            notes: obj.notes,
-        });
-    };
-    const onCheckChange = (employeeName) => {
-        let index = formValue.department.indexOf(employeeName);
+    const onCheckChange = (name) => {
+        let index = formValue.department.indexOf(name);
         let checkArray = [...formValue.department];
         if (index > -1) checkArray.splice(index, 1);
-        else checkArray.push(employeeName);
+        else checkArray.push(name);
         setForm({ ...formValue, department: checkArray });
     };
 
-    const checkDepartment = (employeeName) => {
-        return formValue.department && formValue.department.includes(employeeName);
+    const checkDepartment = (name) => {
+        return formValue.department && formValue.department.includes(name);
     }
     
     const onReset = () => {
         setForm({
-            employeeName: "",
+            name: "",
             profilePic: "",
             gender: "",
             department: [],
@@ -79,38 +47,27 @@ function PayrollForm() {
             notes: ""
         });
     };
+//  UC3 Creating or Adding data to backend
 
     const onSubmit = (event) => {
         event.preventDefault();
 
+
         let employeeObject = {
-            employeeName: formValue.employeeName,
+            name: formValue.name,
             department: formValue.department,
             gender: formValue.gender,
             salary: formValue.salary,
             profilePic: formValue.profilePic,
-            startDate: `${formValue.year}-${formValue.month}-${formValue.day}`,
+            startDate: `${formValue.day} ${formValue.month} ${formValue.year}`,
             notes: formValue.notes
         };
-        console.log("date is :",employeeObject);
-        if (formValue.isUpdate) {
-            EmployeeService.updateEmployee(params.id, employeeObject)
-                .then((data) => {
-                    var value = window.confirm(data);
-                    if (value === true) {
-                        alert("update successfull!");
-                    } else {
-                        window.location.reload();
-                    }
-                });
-        } else {
-           console.log(employeeObject);
+
             EmployeeService
                 .createEmployee(employeeObject).then((response) => (error) => {
-                    console.log(response.data.data); 
-                    alert("Data Added!!", response)
-                })
-        }
+                    console.log(response.data.data); })
+              
+        
     }
 
     const onnameChange = (event) => {
@@ -121,22 +78,12 @@ function PayrollForm() {
     return(
 
         <div>
-            <header className="header-content header">
-                <div className="logo-content">
-                    <img src={logo} alt="logo"/>
-                    <div>
-                        <span className="emp-text">EMPLOYEE</span>
-                        <br />
-                        <span className="emp-text emp-payroll">PAYROLL</span>
-                    </div>
-                </div>
-            </header>
             <div className="form-content">
                 <form className='form' action='#' onReset="resetForm()" onSubmit={(e) => onSubmit(e) }>
                     <div className='form-head'>Employee Payroll Form</div>
                     <div className="row-content">
                 <label  htmlFor="name" className="label text">EmployeeName</label>
-                        <input type='text' className='input' id='employeeName' name='employeeName' value={formValue.employeeName}
+                        <input type='text' className='input' id='employeeName' name='name' value={formValue.name}
                             placeholder="Your name.." required onChange={onnameChange} />
                         <error-output class="text-error" htmlFor="name"></error-output>
                     </div>
@@ -231,18 +178,18 @@ function PayrollForm() {
                             <select name="month" id="month" value={formValue.month}
                                 onChange={onnameChange}>
                                 <option value="" >Month</option>
-                                <option value="01">January</option>
-                                <option value="02">Febuary</option>
-                                <option value="03">March</option>
-                                <option value="04">April</option>
-                                <option value="05">May</option>
-                                <option value="06">June</option>
-                                <option value="07">July</option>
-                                <option value="08">August</option>
-                                <option value="09">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
+                                <option value="Jan">January</option>
+                                <option value="Feb">Febuary</option>
+                                <option value="Mar">March</option>
+                                <option value="Apr">April</option>
+                                <option value="May">May</option>
+                                <option value="Jun">June</option>
+                                <option value="Jul">July</option>
+                                <option value="Aug">August</option>
+                                <option value="Sep">September</option>
+                                <option value="Oct">October</option>
+                                <option value="Nov">November</option>
+                                <option value="Dec">December</option>
                             </select>
                             &nbsp;
 
