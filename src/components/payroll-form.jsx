@@ -47,12 +47,13 @@ function PayrollForm() {
             notes: ""
         });
     };
-//  UC3 Creating or Adding data to backend
+
+//  UC3 Adding or storing Employee Data into the backend DB.
 
     const onSubmit = (event) => {
         event.preventDefault();
 
-
+        
         let employeeObject = {
             name: formValue.name,
             department: formValue.department,
@@ -63,10 +64,31 @@ function PayrollForm() {
             notes: formValue.notes
         };
 
+        // Use Case 5 Displaying Success or Error Msg on console and Validating the form before submitting.
+
+        if (!employeeObject.gender || !employeeObject.department || !employeeObject.gender
+             || !employeeObject.salary || !employeeObject.profilePic || !employeeObject.startDate ||
+              !employeeObject.notes ) {
+            return Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'All fields are required.',
+                showConfirmButton: true
+            });
+        }else{
+        
             EmployeeService
                 .createEmployee(employeeObject).then((response) => (error) => {
                     console.log(response.data.data); })
-              
+                
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Added!',
+                    text: `${employeeObject.name}'s data has been Added.`,
+                    showConfirmButton: false,
+                    timer: 1500
+                 })
+        }   
         
     }
 
