@@ -8,10 +8,6 @@ import edit from "../assets/icons/create-black-18dp.svg";
 import deleteicon from "../assets/icons/delete-black-18dp.svg";
 import { withRouter, Link } from "react-router-dom";
 import EmployeeService from "../services/EmployeeService";;
-// import deleteIcon from "../assets/images/remove.png";
-// import editIcon from "../assets/images/edit.png";;
-// import Headers from "../components/headers";
-
 
 class Home extends Component {
     constructor(props) {
@@ -34,6 +30,14 @@ class Home extends Component {
 
     componentDidMount() {
         this.fetchData();
+    }
+
+    // Use case 7 Remove Employee data from Employee Payroll Service 
+
+    deleteEmployee(empId){
+        console.log("employee id",empId);
+        EmployeeService.deleteEmployee(empId);
+        window.location.reload();
     }
 
     render() {
@@ -67,8 +71,8 @@ class Home extends Component {
                             </thead>
 
                             <tbody>
-                                {this.state.employee && this.state.employee.map((employee,index) => (
-                                    <tr key={`${index}`}>
+                                {this.state.employee && this.state.employee.map((employee) => (
+                                    <tr key={employee.id}>
                                         <td>
                                             <img src={employee.profilePic === "../assets/profile-images/Ellipse -3.png" ? profile1 :
                                                 employee.profilePic === "../assets/profile-images/Ellipse -1.png" ? profile2 :
@@ -83,9 +87,9 @@ class Home extends Component {
                                         <td>{employee.salary}</td>
                                         <td>{employee.startDate}</td>
                                         <td>
-                                            <img onClick={() => {this.deleteEmployee(employee.id) && this.fetchData() }} src={deleteicon}alt="delete"
+                                            <img onClick={() => this.deleteEmployee(employee.employeeId)} src={deleteicon}alt="delete"
                                                 name={employee.id}/>
-                                            <img onClick={() => {this.updateEmployee(employee.id)}} src={edit} name={employee.id} alt="edit" />
+                                            <img onClick={() => {this.updateEmployee(employee.employeeId)}} src={edit} name={employee.id} alt="edit" />
                                         </td>
                                     </tr>
                                 ))}
