@@ -11,5 +11,9 @@ class EmployeeService {
       return axios.post(`${this.baseUrl}/create`,data);
     };
 
+    findAllEmployee() {
+      return axios.get(`${this.baseUrl}/getAllEmp`);
+    }
+
   }
   export default new EmployeeService();

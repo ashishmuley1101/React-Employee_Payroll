@@ -23,6 +23,18 @@ class Home extends Component {
 
     }
 
+    // Use case 6 Home Page Display All Employee Data.
+
+    fetchData() {
+        EmployeeService.findAllEmployee().then((response) => {
+          //  console.log(response.data);
+            this.setState({ employee: response.data.data });
+        });
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
 
     render() {
         return (
@@ -33,13 +45,13 @@ class Home extends Component {
                         <div className="header-content employee-header">
                             <div className="emp-detail-text">
                                 Employee Details
-                                {/* <div className="emp-count">{this.state.employee.length}</div> */}
+                                <div className="emp-count">{this.state.employee.length}</div>
                             </div>
                             <Link to="/" className="add-button">
                                 <img src="" alt="" />+ Add User</Link>
                         </div>
-                    </div>
-                    <div className="table-main">
+                    
+                     <div className="table-main">
                         <table id="table-display" className="table">
                             <thead>
                                 <tr>
@@ -55,14 +67,14 @@ class Home extends Component {
                             </thead>
 
                             <tbody>
-                                {this.state.employee.map((employee, index) => (
+                                {this.state.employee && this.state.employee.map((employee,index) => (
                                     <tr key={`${index}`}>
                                         <td>
                                             <img src={employee.profilePic === "../assets/profile-images/Ellipse -3.png" ? profile1 :
                                                 employee.profilePic === "../assets/profile-images/Ellipse -1.png" ? profile2 :
                                                     employee.profilePic === "../assets/profile-images/Ellipse -4.png" ? profile3 : profile4
                                             } alt="ProfilePic" srcset="" /></td>
-                                        <td>{employee.employeeName}</td>
+                                        <td>{employee.name}</td>
                                         <td>{employee.notes}</td>
                                         <td>{employee.gender}</td>
                                         <td>
@@ -79,6 +91,7 @@ class Home extends Component {
                                 ))}
                             </tbody>
                         </table>
+                    </div>
                     </div>
                 </div>
             </div >
