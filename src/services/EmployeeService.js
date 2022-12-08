@@ -19,5 +19,15 @@ class EmployeeService {
       return axios.delete(`${this.baseUrl}/delete/${id}`);
     };
 
+   // Use Case 8 for updating the employee in Employee Payroll Service
+
+    findEmployee(id) {
+      return axios.get(`${this.baseUrl}/getEmpById/${id}`);
+    };
+    updateEmployee(id, data){
+      return axios.put(`${this.baseUrl}/update/${id}`, data);
+    };
+
+
   }
   export default new EmployeeService();

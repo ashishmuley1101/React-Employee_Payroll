@@ -11,8 +11,9 @@ function App() {
      <Headers/>
       <Router>
           <Switch>
-          <Route exact path="/"><PayrollForm/></Route>
           <Route path="/home"><Home/></Route>
+          <Route  exact path="/"><PayrollForm/></Route>
+          <Route path="/PayrollForm/:empId"><PayrollForm/></Route>
           </Switch>
       </Router>
     </div>

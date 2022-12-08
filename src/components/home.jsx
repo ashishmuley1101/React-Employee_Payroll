@@ -7,7 +7,8 @@ import profile4 from "../assets/profile-images/Ellipse -9.png";
 import edit from "../assets/icons/create-black-18dp.svg";
 import deleteicon from "../assets/icons/delete-black-18dp.svg";
 import { withRouter, Link } from "react-router-dom";
-import EmployeeService from "../services/EmployeeService";;
+import EmployeeService from "../services/EmployeeService";import { Button } from "@mui/material";
+;
 
 class Home extends Component {
     constructor(props) {
@@ -40,6 +41,11 @@ class Home extends Component {
         window.location.reload();
     }
 
+    updateEmployee = (empId) => {
+        console.log("Employee Id : ",empId)
+        this.props.history.push(`PayrollForm/${empId}`);
+    };
+
     render() {
         return (
             <div>
@@ -51,8 +57,9 @@ class Home extends Component {
                                 Employee Details
                                 <div className="emp-count">{this.state.employee.length}</div>
                             </div>
-                            <Link to="/" className="add-button">
-                                <img src="" alt="" />+ Add User</Link>
+                            <Link to="/" style={{textDecoration: 'none'}} >
+                                <Button variant="contained" color='inherit' className="add-button">+ Add User</Button>
+                            </Link>
                         </div>
                     
                      <div className="table-main">
@@ -87,9 +94,9 @@ class Home extends Component {
                                         <td>{employee.salary}</td>
                                         <td>{employee.startDate}</td>
                                         <td>
-                                            <img onClick={() => this.deleteEmployee(employee.employeeId)} src={deleteicon}alt="delete"
+                                            <img onClick={() => this.deleteEmployee(employee.employeeId)} src={deleteicon} alt="delete"
                                                 name={employee.id}/>
-                                            <img onClick={() => {this.updateEmployee(employee.employeeId)}} src={edit} name={employee.id} alt="edit" />
+                                            <img onClick={() => {this.updateEmployee(employee.employeeId)}} src={edit}  alt="edit" />
                                         </td>
                                     </tr>
                                 ))}
